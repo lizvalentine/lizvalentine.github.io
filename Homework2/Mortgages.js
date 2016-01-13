@@ -5,7 +5,9 @@ var yearsIndex;
 var yearsName;
 var yearsCode;
 var monthlyInterest
-var output = "";
+var output1;
+var ourput1Tab;
+var output2;
 var numMonths;
 function getData(){
 	origPrincLoanAmt = document.getElementById("princLoanAmtTB").value;
@@ -21,9 +23,12 @@ function calculate(){
 	var interestPaid = princLoanAmt * monthlyInterest;
 	var princPayment = monthlyPay - interestPaid;
 	princLoanAmt = princLoanAmt-princPayment;
-	summaryTable();
+	makeSummaryHead();
+	summaryTable(10);
 	findEachMonth();
-	document.getElementById("outputDiv").innerHTML = output;
+	document.getElementById("tableTitle").innerHTML = output1;
+	document.getElementById("summaryTable").innerHTML = output1Tab;
+	document.getElementById("schedule").innerHTML = output2;
 }
 function findMonthlyPayment(){
 	getData();
@@ -35,25 +40,29 @@ function findEachMonth(){
 	princLoanAmt = origPrincLoanAmt;
 	var interestPaid;
 	var princPayment;
-	output = output + "<h4>Schedule</h4> <table class='table-striped' style='width:100%'> <tr><th>Month</th>"
+	var year = 1;
+	output2 = "<h4>Schedule</h4> <table class='table-striped' style='width:100%'> <tr><th>Month</th>"
 			+"<th>Interest Paid</th><th>Principle Paid</th><th>Remaining Principle</th></tr>";
 	for(var i = 0; i < numMonths; i++){
 		interestPaid = princLoanAmt * monthlyInterest;
 		princPayment = monthlyPay - interestPaid;
 		princLoanAmt = princLoanAmt-princPayment;
-		var conOutput =
+		var tableOutput =
 				"<tr id="+(i+1)+"> <td>" + (i+1) + " </td> <td> " + interestPaid.toFixed(2) + " </td> <td> " + princPayment.toFixed(2) +
 				" </td> <td> " + princLoanAmt.toFixed(2) + "  </td> </tr> ";
-		output = output + conOutput;
+		output2 = output2 + tableOutput;
+		if((i+1) % 12 === 0){
+			output2 = output2 + "<tr><td><strong>"+ year +" YEARS</strong></td></tr>";
+			year++;
+		}
 	}
-	output = output + " </table> ";
+	output2 = output2 + " </table> ";
 }
-function summaryTable(){
+function summaryTable(month){
 	var monthlyPay = findMonthlyPayment();
 	princLoanAmt = origPrincLoanAmt;
 	var totalInterestPaid = 0;
 	var totalPrincPaid = 0;
-	var month = 1;
 	var interestPaid;
 	var princPayment;
 	for(var i = 0; i < month; i++){
@@ -63,16 +72,23 @@ function summaryTable(){
 		totalPrincPaid = totalPrincPaid + princPayment;
 		princLoanAmt = princLoanAmt - princPayment;
 	}
-	output = output + "<h4>Summary</h4> <label for='monthDDL'>Month on</label> <select id='monthDDL'> "
-				+ "<option value = 1 selected = 'selected'>1</option>";
-	for(var i = 1; i < numMonths; i++){
-		output= output + "<option value = " + (i + 1) + ">" + (i + 1) + "</option>";
-	}	
-	output = output + "</select> <br /> ";
-	output = output + "<table class='table-striped' style='width:100%'> <tr><th>Loan Amount</th>"
+	output1Tab = "<tr><th>Loan Amount</th>"
 				+ "<th>Interest Rate</th><th>Monthly Payment</th><th>Amt Loan Paid</th>"
 				+ "<th>Amt Interest Paid</th><th>% Principle Paid</th> </tr>";
-	output = output + "<tr><td>" + origPrincLoanAmt + "</td><td>" + interestRate + "</td><td>" + monthlyPay.toFixed(2)
-				+ "</td><td>" + totalPrincPaid.toFixed(2) + "</td><td>" + totalInterestPaid.toFixed(2) + "</td><td>" + (totalPrincPaid / origPrincLoanAmt).toFixed(2) + "</td></tr>";
-	output = output + "</table><br/>";
+	output1Tab = output1Tab + "<tr><td>" + origPrincLoanAmt + "</td><td>" + interestRate + "</td><td>" + monthlyPay.toFixed(2)
+				+ "</td><td>" + totalPrincPaid.toFixed(2) + "</td><td>" + totalInterestPaid.toFixed(2)
+				+ "</td><td>" + (totalPrincPaid / origPrincLoanAmt).toFixed(2) + "</td></tr>";
 }
+function makeSummaryHead(){
+	output1 = "<h4>Summary</h4> <label for='monthDDL'>Current Month</label> <select id='monthDDL' onchange='summaryTable(this.value)'> ";
+	for(var i = 0; i < numMonths; i++){
+		if(i !== 9){
+			output1 = output1 + "<option value = " + (i + 1) + ">" + (i + 1) + "</option>";
+		}
+		else{
+			output1 = output1 + "<option value = " + (i + 1) + " selected = 'selected'>" + (i + 1) + "</option>";
+		}
+	}	
+	output1 = output1 + "</select> <br /> ";
+}
+
