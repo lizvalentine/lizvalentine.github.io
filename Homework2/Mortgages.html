@@ -1,0 +1,126 @@
+<!DOCTYPE>
+<html>
+	<head>
+		
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+		<!-- jQuery library -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+		<!-- Latest compiled JavaScript -->
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale = 1">
+		
+		
+		<title>
+			Mortgage Calculator
+		</title>
+		
+		<link rel="stylesheet" type="text/css" href="StylesheetM.css">
+		
+		<script type="text/javascript"> 
+			var princLoanAmt;
+			var interestRate;
+			var yearsIndex;
+			var yearsName;
+			var yearsCode;
+			var monthlyInterest
+			var output = "";
+			var numMonths;
+			function getData(){
+				princLoanAmt = document.getElementById("princLoanAmtTB").value;
+				interestRate = document.getElementById("interestRateTB").value;
+				yearsIndex = document.getElementById("yearsDDL").selectedIndex;
+				yearsCode = document.getElementById("yearsDDL").options[yearsIndex].value;
+				monthlyInterest = interestRate / 12;
+				numMonths = yearsCode * 12;
+			}
+			function display(){
+				getData();
+				var output = "Principle Loan Amount: " + princLoanAmt + 
+				             "<br/>Interest Rate: " + interestRate +
+							 "<br/>Years: " + yearsCode;				
+				document.getElementById("outputDiv").innerHTML = output;
+			}
+			function calculate(){
+				var monthlyPay = findMonthlyPayment();
+				var interestPaid = princLoanAmt * monthlyInterest;
+				var princPayment = monthlyPay - interestPaid;
+				princLoanAmt = princLoanAmt-princPayment;
+				summaryTable();
+				findEachMonth();
+				document.getElementById("outputDiv").innerHTML = output;
+			}
+			function findMonthlyPayment(){
+				getData();
+				var monthlyPay = princLoanAmt * (monthlyInterest / (1 - Math.pow((1+monthlyInterest), -numMonths)));
+				return monthlyPay;
+			}
+			function findEachMonth(){
+			var monthlyPay = findMonthlyPayment();
+			var interestPaid;
+			var princPayment;
+				output = output + "<h3>Schedule</h3> <table class='table-striped' style='width:100%'> <tr><th>Month</th>"
+						+"<th>Interest Paid</th><th>Principle Paid</th><th>Remaining Principle</th></tr>";
+				for(var i = 0; i < numMonths; i++){
+					interestPaid = princLoanAmt * monthlyInterest;
+					princPayment = monthlyPay - interestPaid;
+					princLoanAmt = princLoanAmt-princPayment;
+					var conOutput =
+							"<tr> <td>" + (i+1) + " </td> <td> " + interestPaid.toFixed(2) + " </td> <td> " + princPayment.toFixed(2) +
+							" </td> <td> " + princLoanAmt.toFixed(2) + "  </td> </tr> ";
+					output = output + conOutput;
+				}
+				output = output + " </table> ";
+			}
+			function summaryTable(){
+				var monthlyPay = findMonthlyPayment();
+				var interestPaid = 0;
+				var princPayment = 10;
+				output = output + "<h3>Summary</h3> <table class='table-striped' style='width:100%'> <tr><th>Loan Amount</th>"
+							+ "<th>Interest Rate</th><th>Monthly Payment</th><th>Amt Loan Paid</th>"
+							+ "<th>Amt Interest Paid</th><th>% Principle Paid</th> </tr>";
+				output = output + "<tr><td>" + princLoanAmt + "</td><td>" + interestRate + "</td><td>" + monthlyPay
+							+ "</td><td>" + princPayment + "</td><td>" + interestPaid + "</td><td>" + (princPayment / princLoanAmt) + "</td></tr>";
+				output = output + "</table><br/>";
+			}
+		
+		</script> 
+		
+	</head>
+	
+	<body>
+		<div class="container-fluid">
+			<fieldset>
+				<legend>
+					Welcome to the Mortgage Calculator!
+				</legend>
+				<form id="inputForm">
+					<label for="princLoanAmtTB">Principle loan amount</label> 
+					<input type="text" name="princLoanAmtTB" id="princLoanAmtTB"/></br>
+					
+					<label for="interestRateTB">Anual interest rate</label> 
+					<input type="text" name="interestRateTB" id="interestRateTB"/></br>
+					
+					<label for="yearsDDL">Number of years</label> 
+					<select id="yearsDDL"> 
+						<option value=15>15</option> 
+						<option value=20>20</option> 
+						<option value=30 selected="selected">30</option> 
+					</select> <br /> 
+					
+					 <input type="button" 
+										value="Calculate" 
+				                        onClick="calculate()"/><br />
+				</form>
+				<div id="outputDiv"> 
+				</div> 
+				<table class="table-striped" style="width:100%" id="monthlyData">
+				</table>
+			</fieldset>
+		</div>
+	</body>
+</html>
