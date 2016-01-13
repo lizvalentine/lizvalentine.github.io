@@ -52,7 +52,7 @@ function findEachMonth(){
 				" </td> <td> " + princLoanAmt.toFixed(2) + "  </td> </tr> ";
 		output2 = output2 + tableOutput;
 		if((i+1) % 12 === 0){
-			output2 = output2 + "<tr><td><strong>"+ year +" YEARS</strong></td></tr>";
+			output2 = output2 + "<tr><td></td><td></td><td><strong><em>"+ year +" YEARS</em></strong></td><td></td></tr>";
 			year++;
 		}
 	}
