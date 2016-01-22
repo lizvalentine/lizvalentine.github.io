@@ -1,0 +1,34 @@
+body{
+	text-align: center;
+}
+h1{
+	color: #1fa67b;
+	padding-bottom: 20px;
+	font-size: 18px;
+	font-weight: bold;
+}
+h2{
+	color: #1fa67b;
+}
+#main{
+    margin: 0 auto;
+
+}
+#login{
+	margin: 0 auto;
+	padding-top: 20px;
+    width: 35%;
+}
+.outline{
+	border: 1px solid;
+	border-radius: 15px;
+	border-color: #1fa67b;
+	margin-bottom: 20px;
+	padding: 10px;
+	background-color: #FFFEDB;
+}
+#close {
+    float:right;
+    display:inline-block;
+    padding:2px 5px;
+}

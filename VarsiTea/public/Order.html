@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+		<!-- jQuery library -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+		<!-- Latest compiled JavaScript -->
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale = 1">
+		
+		<!-- firebase library -->
+		<script src="https://cdn.firebase.com/js/client/2.3.2/firebase.js"></script>
+		
+		<link rel="stylesheet" type="text/css" href="BaseStyle.css">
+		
+		<title>
+			VarsiTea - Order
+		</title>
+		<script src="Order.js"></script>
+	</head>
+	
+	<body> 
+		<nav class="navbar navbar-inverse">
+		  <div class="container-fluid">
+			<div class="navbar-header">
+			  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>                        
+			  </button>
+			  <a class="navbar-brand" href="#"><img src="Images/VarsiTea.jpg" alt="Mountain View" style="width:135px;height:50px;"></a>
+			</div>
+			<div class="collapse navbar-collapse" id="myNavbar">
+			  <ul class="nav navbar-nav">
+				<li><a href="Home.html">Home</a></li>
+				<li><a href="Menu.html">Menu</a></li>
+				<li class="active"><a href="#">Order</a></li>
+			  </ul>
+			</div>
+		  </div>
+		</nav>
+		
+		<div class="container-fluid" id="login">
+			<h1>Please select what you would like to order</h1>
+			<form role="form" action="javascript:;" method="post" autocomplete="off">
+				<label for="CategoryDLL" class="sr-only">Category</label> 
+				<select id="CategoryDLL" class="form-control">  
+				</select><br/>
+				<label for="MenuItemDLL" class="sr-only">Menu Item</label> 
+				<select id="MenuItemDLL" class="form-control">
+				</select> <br />
+				
+				
+				<div class="form-group">
+					<label for="specialInstructions" class="sr-only">Special Instructions</label>
+					<input type="text" name="specialInstructions" id="specialInstructions" class="form-control" placeholder="special instructions">
+				</div>
+				<input type="submit" id="addItem" class="btn btn-custom btn-lg btn-block" value="Add to order">
+			</form>
+		</div>
+		<div class= "container-fluid">
+			<div class="row" id="displayOrder">
+			</div>
+			<div id="login">
+				<form role="form" action="javascript:;" method="post" autocomplete="off">
+					<div class="form-group" id="finishOrder">
+						<label for="specialInstructions" class="sr-only">Name</label>
+						<input type="text" name="specialInstructions" id="name" class="form-control" placeholder="name">
+						<label for="specialInstructions" class="sr-only">Phone number</label>
+						<input type="text" name="specialInstructions" id="phoneNumber" class="form-control" placeholder="phone number">
+						<input type="submit" id="submitOrder" class="btn btn-custom btn-lg btn-block" value="Submit order">
+					</div>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>
