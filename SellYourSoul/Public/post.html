@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+				<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+		<!-- jQuery library -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+		<!-- Latest compiled JavaScript -->
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale = 1">
+		
+		<link rel="stylesheet" type="text/css" href="Base.css">
+		<script type="text/javascript" src="angular.min.js"></script>
+		<script type="text/javascript" src="app.js"></script>
+		<script type="text/javascript" src="Post.js"></script>
+		<script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
+		
+		<title>
+			Sell Your Soul - Post Listing
+		</title>
+	</head>
+	<body>
+		<nav class="navbar navbar-inverse" id="head">
+		  <div class="container-fluid">
+			<div class="navbar-header">
+			  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>                        
+			  </button>
+			  <a class="navbar-brand" href="#">Sell Your Soul</a>
+			</div>
+			<div class="collapse navbar-collapse" id="myNavbar">
+				<ul class="nav navbar-nav">
+					<li><a href="listings.html">Home</a></li>
+					<li class="active"><a href="#">Post</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="Login.html"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+				</ul>
+			</div>
+		  </div>
+		</nav>
+		<section id="post">
+			<div class="container-fluid">
+				<div class="form-wrap">
+					<h1>Post a Listing</h1>
+					<form role="form" action="javascript:;" method="post" id="post-form" autocomplete="off">
+						<div class="form-group">
+							<label for="listing" class="sr-only">What are you selling?</label>
+							<input type="listing" name="listing" id="listing" class="form-control" placeholder="Thing You're Selling">
+						</div>
+						<div class="form-group">
+							<label for="description" class="sr-only">Describe the thing</label>
+							<textarea name='paragraph_text' cols='75' rows='10' id='description'></textarea>
+						</div>
+						<div class="form-group">
+							<label for="price" class="sr-only">What price do you put on your soul?</label>
+							<input type="price" name="price" id="price" class="form-control" placeholder="$$$$$$">
+						</div>
+						<div class="form-group">
+						
+							<p><input type='url' id="picturUrl" class="form-control" placeholder="Add Picture URL"></p>
+							<input type="submit" id="btn-lodPic" class="btn" value="Add File" onclick="loadImageFileAsURL()">
+							<img id="myImg" src="#" alt="your image" >	
+
+						</div>
+						<input type="submit" id="btn-post" class="btn btn-custom btn-lg btn-block" value="Post">
+					</form>
+					<script type='text/javascript'>
+						function loadImageFileAsURL(){
+							var source = document.getElementById("picturUrl").value;
+							document.getElementById("myImg").setAttribute("src", source);
+							
+						}
+
+				  </script>
+				</div>
+			</div> <!-- /.container -->
+		</section>
+	</body>
+</html>

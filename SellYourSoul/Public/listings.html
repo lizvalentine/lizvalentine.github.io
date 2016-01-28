@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html ng-app='SellYourSoul'>
+	<head>
+			<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+		<!-- jQuery library -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+		<!-- Latest compiled JavaScript -->
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		
+		
+		<!-- AngularJS -->
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+
+		<!-- Firebase -->
+		<script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
+
+		<!-- AngularFire -->
+		<script src="https://cdn.firebase.com/libs/angularfire/1.1.3/angularfire.min.js"></script>
+		
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale = 1">
+		
+		<link rel="stylesheet" type="text/css" href="Base.css">
+		<script type="text/javascript" src="app.js"></script>
+		
+		<title>
+			Sell Your Soul - View Listings
+		</title>
+	</head>
+	<body ng-controller="ListingController as listingCtrl">
+		<nav class="navbar navbar-inverse" id="head">
+		 <div class="container-fluid">
+			<div class="navbar-header">
+			 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>                        
+			 </button>
+			 <a class="navbar-brand" href="#">Sell Your Soul</a>
+			</div>
+			<div class="collapse navbar-collapse" id="myNavbar">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#">Home</a></li>
+					<li><a href="post.html">Post</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="Login.html"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+				</ul>
+			</div>
+		 </div>
+		</nav>
+		<div class="container-fluid" id="head"></div>
+			<div class="container-fluid" id="main">
+			<div class="row">
+				<div ng-repeat="user in listingCtrl.listing">
+					<div class="col-xs-6 col-sm-4 col-lg-3" ng-repeat="item in user.Items" id="listItems">
+							<h2>{{item.Title}}</h2>
+							<img id="myImg" ng-src="{{item.photo}}" alt="your image" >
+							<p>
+								{{item.description}} <strong>{{item.Price | currency}}</strong><br/>
+								<a href="mailto:{{user.User}}?Subject=SellYourSoul {{item.Title}}}}" target="_top">{{user.User}}</a>
+							</p>
+							
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

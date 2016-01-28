@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+		<!-- jQuery library -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+		<!-- Latest compiled JavaScript -->
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale = 1">
+		
+		<link rel="stylesheet" type="text/css" href="Login.css">
+		<script type="text/javascript" src="angular.min.js"></script>
+		<script type="text/javascript" src="app.js"></script>
+	
+		<title>
+			Sell Your Soul
+		</title>
+		
+		<script type="text/javascript" src="angular.min.js"></script>
+		<script src="https://cdn.firebase.com/js/client/2.4.0/firebase.js"></script>
+		
+		<script>
+			var myFirebaseRef = new Firebase("https://sellyoursoul.firebaseio.com/");
+			myFirebaseRef.once("value", function(snapshot) {
+				console.log(snapshot.key());
+			});
+			function login(){
+				if(document.getElementById("email").value !== "" && document.getElementById("key").value !== ""){
+					var ref = new Firebase("https://sellyoursoul.firebaseio.com");
+					var userEmail = document.getElementById("email").val;
+					var userPassword = document.getElementById("key").val;
+					ref.authWithPassword({
+					  email    : userEmail,
+					  password : userPassword
+					}, function(error, authData) { /* Your Code */ }, {
+					  remember: "sessionOnly"
+					});
+					window.location.assign("listings.html");
+				}
+				else{
+					document.getElementById("error").innerHTML = "Incorrect Username or Password";
+				}
+			}
+			function showPassword() {
+				var key_attr = $('#key').attr('type');
+				if(key_attr != 'text') {
+					$('.checkbox').addClass('show');
+					$('#key').attr('type', 'text');
+				}
+				else {
+					$('.checkbox').removeClass('show');
+					$('#key').attr('type', 'password');
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<nav class="navbar navbar-inverse" id="head">
+		  <div class="container-fluid">
+			<div class="navbar-header">
+			  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>                        
+			  </button>
+			  <a class="navbar-brand" href="#">Sell Your Soul</a>
+			</div>
+			<div class="collapse navbar-collapse" id="myNavbar">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="MakeAccount.html"><span class="glyphicon glyphicon-user"></span> Create Account</a></li>
+					<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+				</ul>
+			</div>
+		  </div>
+		</nav>
+		<section id="login">
+			<div class="container">
+				<div class="form-wrap">
+					<h1>Log in with your email account</h1>
+					<div id="error">
+					</div>
+					<form role="form" action="javascript:;" method="post" id="login-form" autocomplete="off" novalidate>
+						<div class="form-group">
+							<label for="email" class="sr-only">Email</label>
+							<input type="email" name="email" id="email" class="form-control" placeholder="somebody@example.com" required>
+						</div>
+						<div class="form-group">
+							<label for="key" class="sr-only">Password</label>
+							<input type="password" name="key" id="key" class="form-control" placeholder="Password" required>
+						</div>
+						<div class="checkbox">
+                            <span class="character-checkbox" onclick="showPassword()"></span>
+                            <span class="label">Show password</span>
+                        </div>
+						<input type="submit" id="btn-login" class="btn btn-custom btn-lg btn-block" value="Log in" onclick="login()">
+					</form>
+					<a href="javascript:;" class="forget" data-toggle="modal" data-target=".forget-modal"></a>
+					<hr>
+				</div>
+			</div> <!-- /.container -->
+		</section>
+	</body>
+</html>

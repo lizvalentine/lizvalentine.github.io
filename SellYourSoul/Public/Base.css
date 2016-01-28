@@ -1,0 +1,30 @@
+#head{
+	background-color: #731A0E;
+	color: #ffffff;
+}
+
+#post{
+	width: 50%;
+	margin: 0 auto;
+}
+body{
+	background-color: #ff9999;
+	text-align: center;
+	color: #731A0E;
+}
+
+#myImg{
+	width: 50%;
+	height:50%;
+}
+#inputFileToLoad{
+	border: none;
+}
+#listItems{
+	background: #FFF2F2;
+	border: 1px solid;
+	border-radius: 15px;
+	border-color: black;
+	margin-bottom: 20px;
+	padding: 10px;
+}

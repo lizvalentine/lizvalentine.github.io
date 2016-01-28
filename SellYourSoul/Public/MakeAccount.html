@@ -1,0 +1,112 @@
+<!DOCTYPE>
+<html ng-app="store">
+	<head>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+		<!-- jQuery library -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+		<!-- Latest compiled JavaScript -->
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale = 1">
+		
+		<link rel="stylesheet" type="text/css" href="Login.css">
+		
+		<script type="text/javascript" src="angular.min.js"></script>
+
+		<script type="text/javascript" src="app.js"></script>
+		
+		<script src="https://cdn.firebase.com/js/client/2.3.2/firebase.js"></script>
+		<script src="https://cdn.firebase.com/libs/angularfire/1.1.3/angularfire.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+		
+		<script>
+			function addUser(){
+				if(document.getElementById("email").value !== "" && document.getElementById("key1").value !== "" && document.getElementById("key2").value !== ""){
+					if(document.getElementById("key1").value === document.getElementById("key2").value){
+						console.log("passwords are the same");
+						var ref = new Firebase("https://sellyoursoul.firebaseio.com");
+						var userEmail = document.getElementById("email").value;
+						console.log(userEmail);
+						var userPassword = document.getElementById("key1").value;
+						console.log(userPassword);
+						ref.createUser({
+						  email    : userEmail,
+						  password : userPassword
+						}, function(error, userData) {
+						  if (error) {
+							console.log("Error creating user:", error);
+							document.getElementById("error").innerHTML = "Error Creating User";
+
+						  } else {
+							//ref.push({User: String(userEmail)});
+							console.log("Successfully created user account with uid:", userData.uid);
+							setTimeout(window.location.assign("Login.html"), 25);
+						  }
+						});
+						
+					}
+					else{
+						document.getElementById("error").innerHTML = "Passwords do not match";
+						
+					}
+				}
+				else{
+					document.getElementById("error").innerHTML ="Please fill out all fields";
+				}
+			};
+		</script>
+		
+		<title>
+			Sell Your Soul - Create Account
+		</title>
+	</head>
+	<body>
+		<nav class="navbar navbar-inverse" id="head">
+		  <div class="container-fluid">
+			<div class="navbar-header">
+			  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>                        
+			  </button>
+			  <a class="navbar-brand" href="#">Sell Your Soul</a>
+			</div>
+			<div class="collapse navbar-collapse" id="myNavbar">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#"><span class="glyphicon glyphicon-user"></span> Create Account</a></li>
+					<li><a href="Login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+				</ul>
+			</div>
+		  </div>
+		</nav>
+		
+		<section id="login">
+			<div class="container">
+				<div class="form-wrap">
+					<h1>Create account</h1>
+					<div id="error">
+					</div>
+					<form role="form" action="javascript:;" method="post" id="login-form" autocomplete="off" novalidate>
+						<div class="form-group">
+							<label for="email" class="sr-only">Email</label>
+							<input type="email" name="email" id="email" class="form-control" placeholder="somebody@example.com" required>
+						</div>
+						<div class="form-group">
+							<label for="key" class="sr-only">Password</label>
+							<input type="password" name="key1" id="key1" class="form-control" placeholder="Password" required>
+						</div>
+						<div class="form-group">
+							<label for="key" class="sr-only">Password</label>
+							<input type="password" name="key2" id="key2" class="form-control" placeholder="Password Confirmation" required>
+						</div>
+						<input type="submit" id="btn-login" class="btn btn-custom btn-lg btn-block" value="Create Account" onclick="addUser()">
+					</form>
+				</div>
+			</div> <!-- /.container -->
+		</section>
+	</body>
+</html>
