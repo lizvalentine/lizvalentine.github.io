@@ -13,6 +13,6 @@ $(document).ready(function() {
 	//adds stuff to database
 	$("#btn-post").click(function() {
 		myFirebaseRef.child("-K8zfCm-H8ALeq9rmD-x?").child("Items").push({Title: $("#listing").val(), description: $("#description").val(), Price: $("#price").val(), photo: $("#myImg").attr('src')});
-		//setTimeout(window.location.assign("listings.html"), 50);
+		setTimeout(window.location.assign("listings.html"), 50);
 	});
 });
